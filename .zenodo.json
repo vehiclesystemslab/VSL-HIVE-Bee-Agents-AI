@@ -1,0 +1,26 @@
+{
+  "creators": [
+    {
+      "name": "Borda, Andrés",
+      "orcid": "0009-0009-9047-1036",
+      "affiliation": "Vehicle Systems Lab"
+    }
+  ],
+  "title": "VSL-HIVE Bee Agents AI v0.1",
+  "version": "0.1",
+  "access_right": "open",
+  "upload_type": "software",
+  "language": "eng",
+  "keywords": [
+    "AI agents",
+    "microagents",
+    "multi-agent systems",
+    "evidence preservation",
+    "selective wake-up",
+    "live observation",
+    "VSL-HIVE",
+    "Bee Agents",
+    "Japan Meteorological Agency",
+    "provenance"
+  ]
+}

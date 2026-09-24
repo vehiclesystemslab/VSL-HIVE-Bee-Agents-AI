@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it using the metadata below."
+title: "VSL-HIVE Bee Agents AI v0.1"
+type: software
+authors:
+  - family-names: "Borda"
+    given-names: "Andrés"
+    orcid: "https://orcid.org/0009-0009-9047-1036"
+    affiliation: "Vehicle Systems Lab"
+version: "0.1"
+date-released: "2026-09-24"
+repository-code: "https://github.com/vehiclesystemslab/VSL-HIVE-Bee-Agents-AI"
+keywords:
+  - AI agents
+  - microagents
+  - multi-agent systems
+  - evidence preservation
+  - selective wake-up
+  - live observation
+  - VSL-HIVE
+  - Bee Agents
