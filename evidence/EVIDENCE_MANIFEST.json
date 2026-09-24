@@ -1,0 +1,33 @@
+{
+  "release": "VSL-HIVE Bee Agents AI v0.1",
+  "release_stage": "PUB-04",
+  "publication": false,
+  "live_box": {
+    "status": "EXISTING",
+    "bee_integration": "VALIDATED"
+  },
+  "validated_internal_artifacts": {
+    "bee_sha256": "8389c4fd6bdeb50cc71fad3b3260450b97c41febf4c3af4c9b8027b6e93a34a5",
+    "core_sha256": "4c727b8d5874ddc71b4f2ed5739ea892e73f6366f8090bd14e1c2178ec4c8fb2"
+  },
+  "public_reference_artifacts": {
+    "bee_sha256": "5b77d283d7a832addf2275424a94f175fde65ba28744f1168299f1df655e4745",
+    "core_sha256": "7f3ce03b885c03b980a25f4ea626fc9776cf6f0caef8267f6081419183162144"
+  },
+  "gates": {
+    "G07E": "PASS_G07E_LIVE_PAIR_STATIC_CROSS_AUDIT",
+    "G07J": "PASS_G07J_LIVE_NO_CHANGE",
+    "G07K": "PASS_G07K_POST_OBSERVATION_SILENCE_INTEGRITY"
+  },
+  "jma": {
+    "source": "https://www.data.jma.go.jp/developer/xml/feed/eqvol.xml",
+    "g06b_baseline_sha256": "a36d4972c9f76ebe28f5215faa484b13d113044775ad5e9dbe1766a88210c4f7",
+    "g07j_observation_sha256": "a36d4972c9f76ebe28f5215faa484b13d113044775ad5e9dbe1766a88210c4f7",
+    "baseline_entries": 50,
+    "observed_entries": 50,
+    "new_entries": 0
+  },
+  "g07k_evidence_sha256": "fba6892a65fe3e1d38e7839357371dd669ceacb6d6545f1ac60f14d41a013313",
+  "secrets_included": false,
+  "private_keys_included": false
+}

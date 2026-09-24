@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "VSL-HIVE Honey v0.1",
+  "type": "object",
+  "required": [
+    "schema",
+    "experiment",
+    "bee_id",
+    "territory_id",
+    "source_id",
+    "event_seq",
+    "observed_at_ns",
+    "flower_sha256",
+    "source_raw_sha256",
+    "source_entry_id",
+    "source_entry_updated",
+    "previous_honey_sha256",
+    "honey_sha256"
+  ],
+  "properties": {
+    "schema": {
+      "const": "vsl.hive.aimtg.honey.v0.1"
+    },
+    "experiment": {
+      "const": "EXP-011/G07"
+    },
+    "bee_id": {
+      "const": "JP-ALPHA-BEE-003"
+    },
+    "territory_id": {
+      "const": "JP"
+    },
+    "source_id": {
+      "const": "JMA_EQVOL"
+    },
+    "event_seq": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "observed_at_ns": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "flower_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "source_raw_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "source_entry_id": {
+      "type": "string",
+      "pattern": "^https://www[.]data[.]jma[.]go[.]jp/developer/xml/data/.+[.]xml$"
+    },
+    "source_entry_updated": {
+      "type": "string",
+      "minLength": 1
+    },
+    "previous_honey_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "honey_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  },
+  "additionalProperties": false
+}

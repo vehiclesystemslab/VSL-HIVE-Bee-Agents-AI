@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "VSL-HIVE LIVE Flower v0.1",
+  "type": "object",
+  "required": [
+    "schema",
+    "mode",
+    "territory_id",
+    "source",
+    "provenance",
+    "observation",
+    "interpretation",
+    "flower_sha256"
+  ],
+  "properties": {
+    "schema": {
+      "const": "vsl.hive.aimtg.local-flower.v0.1"
+    },
+    "mode": {
+      "const": "LIVE_OBSERVATION"
+    },
+    "territory_id": {
+      "const": "JP"
+    },
+    "source": {
+      "type": "object",
+      "required": [
+        "source_id"
+      ],
+      "properties": {
+        "source_id": {
+          "const": "JMA_EQVOL"
+        }
+      },
+      "additionalProperties": true
+    },
+    "provenance": {
+      "type": "object",
+      "required": [
+        "source_raw_sha256"
+      ],
+      "properties": {
+        "source_raw_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      },
+      "additionalProperties": true
+    },
+    "observation": {
+      "type": "object",
+      "required": [
+        "entry_id",
+        "updated"
+      ],
+      "properties": {
+        "entry_id": {
+          "type": "string",
+          "pattern": "^https://www[.]data[.]jma[.]go[.]jp/developer/xml/data/.+[.]xml$"
+        },
+        "updated": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": true
+    },
+    "interpretation": {
+      "type": "object",
+      "required": [
+        "anomaly_declared",
+        "public_box_publish"
+      ],
+      "properties": {
+        "anomaly_declared": {
+          "const": false
+        },
+        "public_box_publish": {
+          "const": false
+        }
+      },
+      "additionalProperties": true
+    },
+    "flower_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  },
+  "additionalProperties": true
+}
