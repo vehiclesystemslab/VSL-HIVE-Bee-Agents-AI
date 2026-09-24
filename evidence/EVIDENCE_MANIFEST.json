@@ -1,7 +1,7 @@
 {
   "release": "VSL-HIVE Bee Agents AI v0.1",
-  "release_stage": "PUB-04",
-  "publication": false,
+  "release_stage": "PUBLIC_v0.1",
+  "publication": true,
   "live_box": {
     "status": "EXISTING",
     "bee_integration": "VALIDATED"
