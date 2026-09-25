@@ -1,9 +1,12 @@
 # VSL-HIVE Bee Agents AI v0.1
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22948989.svg)](https://doi.org/10.5281/zenodo.22948989)
+
 `Agents are disposable; evidence and knowledge persist.`
 
 ## Reference release
 
+- DOI: [10.5281/zenodo.22948989](https://doi.org/10.5281/zenodo.22948989)
 - Bee: `JP-ALPHA-BEE-003`
 - Territory: `JP`
 - Source: `JMA_EQVOL`
