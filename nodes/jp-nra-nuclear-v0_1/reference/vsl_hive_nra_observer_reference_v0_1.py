@@ -117,8 +117,40 @@ def fetch(url):
     return final_url, raw
 
 
+def decode_html(raw):
+    head = raw[:4096].decode("ascii", "ignore")
+    match = re.search(
+        r"""charset\s*=\s*["']?\s*([A-Za-z0-9._-]+)""",
+        head,
+        flags=re.I,
+    )
+
+    candidates = []
+    if match:
+        candidates.append(match.group(1))
+
+    candidates.extend([
+        "utf-8",
+        "cp932",
+        "shift_jis",
+    ])
+
+    seen = set()
+    for encoding in candidates:
+        key = encoding.lower()
+        if key in seen:
+            continue
+        seen.add(key)
+        try:
+            return raw.decode(encoding)
+        except (LookupError, UnicodeDecodeError):
+            continue
+
+    return raw.decode("utf-8", "replace")
+
+
 def visible_text(raw):
-    text = raw.decode("utf-8", "replace")
+    text = decode_html(raw)
     text = re.sub(r"<script\b[^>]*>.*?</script>", " ", text, flags=re.I | re.S)
     text = re.sub(r"<style\b[^>]*>.*?</style>", " ", text, flags=re.I | re.S)
     text = re.sub(r"<[^>]+>", " ", text)
@@ -226,7 +258,7 @@ def write_flower(entry_url, title, raw):
 
 def candidate_links(raw):
     parser = LinkParser()
-    parser.feed(raw.decode("utf-8", "replace"))
+    parser.feed(decode_html(raw))
 
     out = []
     for href, title in parser.links:
