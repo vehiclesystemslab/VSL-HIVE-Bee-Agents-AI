@@ -26,6 +26,7 @@ check("施設への影響なし", False, "EXCLUDED_OR_NEGATIVE")
 
 # Ambiguous / assessment-only wording must remain silent.
 check("地震発生。現在、施設の状況を確認しています。", False, "NO_EXPLICIT_POSITIVE_IMPACT")
+check("原子力施設の機器故障について情報提供", False, "NO_EXPLICIT_POSITIVE_IMPACT")
 
 # Positive impact markers can wake only when no exclusion marker exists.
 check("原子力施設で異常を確認", True, "EXPLICIT_POSITIVE_IMPACT")
