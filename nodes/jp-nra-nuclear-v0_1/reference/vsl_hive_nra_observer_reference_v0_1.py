@@ -47,8 +47,14 @@ POSITIVE_MARKERS = (
     "故障",
 )
 
+# Current NRA article URLs observed on the official site:
+# /kinkyu/YYYY/MM/post-N.html  (Emergency Information)
+# /joho/YYYY/MM/post-N.html    (Information Notices)
+#
+# Archive indexes such as /kinkyu/index.html and /joho/index.html
+# are deliberately excluded from LIVE event candidates.
 INTERESTING_PATH = re.compile(
-    r"^/m/(?:new|joho_new)(?:_[0-9]+)?[.]html$"
+    r"^/(?:kinkyu|joho)/[0-9]{4}/[0-9]{2}/post-[0-9]+[.]html$"
 )
 
 
@@ -227,6 +233,9 @@ def candidate_links(raw):
         absolute = urllib.parse.urljoin(SOURCE_HOME, href)
         parsed = urllib.parse.urlparse(absolute)
 
+        if parsed.scheme != "https":
+            continue
+
         if parsed.netloc != "kinkyu.nra.go.jp":
             continue
 
@@ -248,7 +257,10 @@ def run_once():
     _, home_raw = fetch(SOURCE_HOME)
     seen = load_seen()
 
-    for entry_url, anchor_title in candidate_links(home_raw):
+    candidates = candidate_links(home_raw)
+    print("NRA_CANDIDATE_COUNT=" + str(len(candidates)), flush=True)
+
+    for entry_url, anchor_title in candidates:
         _, raw = fetch(entry_url)
         source_sha = sha256_bytes(raw)
 
