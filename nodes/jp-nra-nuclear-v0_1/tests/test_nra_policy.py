@@ -32,4 +32,24 @@ check("原子力施設で異常を確認", True, "EXPLICIT_POSITIVE_IMPACT")
 check("放射性物質の漏えいを確認", True, "EXPLICIT_POSITIVE_IMPACT")
 check("施設敷地緊急事態を判断", True, "EXPLICIT_POSITIVE_IMPACT")
 
+# Current NRA URL structure.
+html = b"""
+<html><body>
+<a href="/kinkyu/2026/07/post-125.html">Emergency</a>
+<a href="/joho/2026/08/post-150.html">Information</a>
+<a href="/kinkyu/index.html">Archive</a>
+<a href="/joho/index.html">Archive</a>
+<a href="https://example.com/kinkyu/2026/07/post-999.html">External</a>
+</body></html>
+"""
+
+links = observer.candidate_links(html)
+urls = [url for url, title in links]
+
+assert urls == [
+    "https://kinkyu.nra.go.jp/kinkyu/2026/07/post-125.html",
+    "https://kinkyu.nra.go.jp/joho/2026/08/post-150.html",
+]
+
 print("NRA_POLICY_TESTS=PASS")
+print("NRA_URL_DISCOVERY_TESTS=PASS")
