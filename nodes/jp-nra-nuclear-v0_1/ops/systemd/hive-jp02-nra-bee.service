@@ -1,0 +1,18 @@
+[Unit]
+Description=VSL HIVE JP-02 NRA Bee
+Requires=hive-jp02-nra-core.service
+After=hive-jp02-nra-core.service
+
+[Service]
+Type=simple
+User=andresborda
+WorkingDirectory=/home/andresborda/hive-jp02-nra
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/usr/bin/python3 /home/andresborda/hive-jp02-nra/reference/vsl_hive_nra_bee_reference_v0_1.py
+Restart=on-failure
+RestartSec=5
+UMask=0077
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target
