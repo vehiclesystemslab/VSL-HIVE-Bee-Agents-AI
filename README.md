@@ -66,8 +66,10 @@ https://kinkyu.nra.go.jp/
 
 ## Verify
 
+`SHA256SUMS.txt` belongs to the immutable JMA v0.1 reference release. Because this top-level README now also surfaces JP-02, verify the unchanged legacy artifacts while excluding only the historical README entry:
+
 ```bash
-sha256sum -c SHA256SUMS.txt
+grep -v ' ./README.md SHA256SUMS.txt | sha256sum -c -
 python3 -c "import ast; ast.parse(open(\"reference/vsl_hive_bee_agent_reference_v0_1.py\").read())"
 python3 -c "import ast; ast.parse(open(\"reference/vsl_hive_core_reference_v0_1.py\").read())"
 ```
