@@ -44,7 +44,6 @@ POSITIVE_MARKERS = (
     "異常を確認",
     "異常が確認",
     "影響あり",
-    "故障",
 )
 
 # Current NRA article URLs observed on the official site:
