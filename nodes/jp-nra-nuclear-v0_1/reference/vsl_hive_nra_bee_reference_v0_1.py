@@ -23,6 +23,7 @@ CORE_HOST = "127.0.0.1"
 CORE_PORT = 9710
 
 GENESIS = "0" * 64
+CORE_EVIDENCE_DIR = "./runtime/jp-nra-core/evidence"
 
 EXPECTED_FLOWER_SCHEMA = "vsl.hive.jp-nra.local-flower.v0.1"
 
@@ -57,6 +58,61 @@ def canonical_hash(obj):
         ensure_ascii=False,
     ).encode("utf-8")
     return sha256_bytes(raw)
+
+
+def recover_chain_tail():
+    if not os.path.isdir(CORE_EVIDENCE_DIR):
+        return 0, GENESIS
+
+    packets = []
+    for name in os.listdir(CORE_EVIDENCE_DIR):
+        if not name.startswith("honey_") or not name.endswith(".json"):
+            continue
+        path = os.path.join(CORE_EVIDENCE_DIR, name)
+        with open(path, "r", encoding="utf-8") as f:
+            packet = json.load(f)
+        packets.append((packet.get("event_seq"), name, packet))
+
+    if not packets:
+        return 0, GENESIS
+
+    packets.sort(key=lambda item: (item[0], item[1]))
+
+    expected_seq = 1
+    previous_honey = GENESIS
+
+    for seq, name, packet in packets:
+        if not isinstance(seq, int) or seq != expected_seq:
+            raise RuntimeError("RECOVERY_EVENT_SEQUENCE_INVALID")
+
+        if packet.get("schema") != "vsl.hive.jp-nra.honey.v0.1":
+            raise RuntimeError("RECOVERY_SCHEMA_INVALID")
+
+        if packet.get("bee_id") != BEE_ID:
+            raise RuntimeError("RECOVERY_BEE_ID_INVALID")
+
+        if packet.get("territory_id") != TERRITORY_ID:
+            raise RuntimeError("RECOVERY_TERRITORY_INVALID")
+
+        if packet.get("source_id") != SOURCE_ID:
+            raise RuntimeError("RECOVERY_SOURCE_INVALID")
+
+        honey_sha = packet.get("honey_sha256")
+        if not isinstance(honey_sha, str) or not re.fullmatch(r"[0-9a-f]{64}", honey_sha):
+            raise RuntimeError("RECOVERY_HONEY_SHA_INVALID")
+
+        body = dict(packet)
+        body.pop("honey_sha256", None)
+        if honey_sha != canonical_hash(body):
+            raise RuntimeError("RECOVERY_HONEY_HASH_MISMATCH")
+
+        if packet.get("previous_honey_sha256") != previous_honey:
+            raise RuntimeError("RECOVERY_CHAIN_LINK_INVALID")
+
+        previous_honey = honey_sha
+        expected_seq += 1
+
+    return expected_seq - 1, previous_honey
 
 
 def snapshot():
@@ -215,13 +271,14 @@ if not os.path.exists(SOURCE_PATH):
 
 raw, baseline_sha = snapshot()
 
-event_seq = 0
-honey_sent = 0
-previous_honey = GENESIS
+event_seq, previous_honey = recover_chain_tail()
+honey_sent = event_seq
 
 write_state("SLEEP", event_seq, honey_sent, baseline_sha, previous_honey)
 print("BEE_ID=" + BEE_ID, flush=True)
 print("BEE_STATE=SLEEP", flush=True)
+print("NRA_BEE_RECOVERED_EVENT_SEQ=" + str(event_seq), flush=True)
+print("NRA_BEE_RECOVERED_PREVIOUS_HONEY=" + previous_honey, flush=True)
 
 fd = libc.inotify_init1(0)
 if fd < 0:
