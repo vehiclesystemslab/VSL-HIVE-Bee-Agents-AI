@@ -14,6 +14,31 @@
 - Lifecycle: `SEED -> SLEEP -> WAKE -> FORAGE -> DEPOSIT -> DIE`
 - Transport: TLS 1.3 / mutual authentication
 
+## Independent LIVE node candidate — JP-02 NRA Nuclear
+
+The repository now includes an isolated HIVE node for the Nuclear Regulation Authority of Japan (NRA), built to observe the official NRA Nuclear Emergency Alert surface directly.
+
+Public node path:
+
+- `nodes/jp-nra-nuclear-v0_1/`
+
+Operationally validated properties:
+
+- direct official NRA source observation
+- fail-closed classification
+- silence on drills, `異常なし`, no-impact notices, and ambiguous wording
+- WAKE only on explicit positive NRA incident/impact wording
+- independent Observer, Bee, CORE, runtime state, evidence chain, and failure domain
+- mTLS between Bee and CORE
+- restart-safe Honey-chain continuity
+- persistent systemd operation
+- real VM reboot recovery
+- Observer readiness guard
+- off-node CA signing-key custody; CA private key absent from the node runtime
+- external/X publication disabled
+
+The JP-02 branch and pull request remain candidate/review artifacts until merge is explicitly approved. The published JMA v0.1 reference release and its hashes remain unchanged.
+
 ## Validated evidence
 
 | Gate | Status |
@@ -34,6 +59,10 @@
 ## Source
 
 https://www.data.jma.go.jp/developer/xml/feed/eqvol.xml
+
+JP-02 NRA primary source:
+
+https://kinkyu.nra.go.jp/
 
 ## Verify
 

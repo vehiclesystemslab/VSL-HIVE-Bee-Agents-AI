@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "VSL-HIVE JP NRA Honey v0.1",
+  "type": "object",
+  "required": [
+    "schema",
+    "bee_id",
+    "territory_id",
+    "source_id",
+    "event_seq",
+    "observed_at_ns",
+    "flower_sha256",
+    "source_raw_sha256",
+    "source_entry_id",
+    "source_title",
+    "previous_honey_sha256",
+    "honey_sha256"
+  ],
+  "properties": {
+    "schema": {"const": "vsl.hive.jp-nra.honey.v0.1"},
+    "bee_id": {"const": "JP-NRA-BEE-001"},
+    "territory_id": {"const": "JP"},
+    "source_id": {"const": "NRA_NUCLEAR_ALERT"},
+    "event_seq": {"type": "integer", "minimum": 1},
+    "observed_at_ns": {"type": "integer", "minimum": 1},
+    "flower_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "source_raw_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "source_entry_id": {
+      "type": "string",
+      "pattern": "^https://kinkyu[.]nra[.]go[.]jp/.+"
+    },
+    "source_title": {"type": "string", "minLength": 1},
+    "previous_honey_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "honey_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  },
+  "additionalProperties": false
+}

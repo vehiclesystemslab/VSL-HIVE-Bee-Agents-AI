@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "VSL-HIVE JP NRA Flower v0.1",
+  "type": "object",
+  "required": [
+    "schema",
+    "mode",
+    "territory_id",
+    "source",
+    "provenance",
+    "observation",
+    "interpretation",
+    "flower_sha256"
+  ],
+  "properties": {
+    "schema": {"const": "vsl.hive.jp-nra.local-flower.v0.1"},
+    "mode": {"const": "LIVE_OBSERVATION"},
+    "territory_id": {"const": "JP"},
+    "source": {
+      "type": "object",
+      "required": ["source_id", "source_org", "source_url"],
+      "properties": {
+        "source_id": {"const": "NRA_NUCLEAR_ALERT"},
+        "source_org": {"const": "Nuclear Regulation Authority of Japan"},
+        "source_url": {"const": "https://kinkyu.nra.go.jp/"}
+      },
+      "additionalProperties": false
+    },
+    "provenance": {
+      "type": "object",
+      "required": ["source_raw_sha256"],
+      "properties": {
+        "source_raw_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      },
+      "additionalProperties": false
+    },
+    "observation": {
+      "type": "object",
+      "required": ["entry_id", "title", "observed_at_ns"],
+      "properties": {
+        "entry_id": {
+          "type": "string",
+          "pattern": "^https://kinkyu[.]nra[.]go[.]jp/.+"
+        },
+        "title": {"type": "string", "minLength": 1},
+        "observed_at_ns": {"type": "integer", "minimum": 1}
+      },
+      "additionalProperties": false
+    },
+    "interpretation": {
+      "type": "object",
+      "required": [
+        "exercise",
+        "negative_status_detected",
+        "positive_impact_confirmed",
+        "publication_candidate"
+      ],
+      "properties": {
+        "exercise": {"const": false},
+        "negative_status_detected": {"const": false},
+        "positive_impact_confirmed": {"const": true},
+        "publication_candidate": {"const": true}
+      },
+      "additionalProperties": false
+    },
+    "flower_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  },
+  "additionalProperties": false
+}

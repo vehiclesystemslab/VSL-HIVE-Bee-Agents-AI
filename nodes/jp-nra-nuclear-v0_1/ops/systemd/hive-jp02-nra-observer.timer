@@ -1,0 +1,12 @@
+[Unit]
+Description=VSL HIVE JP-02 NRA Observer 60s Timer
+
+[Timer]
+OnBootSec=60s
+OnUnitActiveSec=60s
+AccuracySec=1s
+Persistent=false
+Unit=hive-jp02-nra-observer.service
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,15 @@
+[Unit]
+Description=VSL HIVE JP-02 NRA LIVE Observer
+Requires=hive-jp02-nra-bee.service
+After=network-online.target hive-jp02-nra-bee.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=andresborda
+WorkingDirectory=/home/andresborda/hive-jp02-nra
+Environment=PYTHONUNBUFFERED=1
+ExecStartPre=/home/andresborda/hive-jp02-nra/bin/wait_for_bee_ready.sh
+ExecStart=/usr/bin/python3 /home/andresborda/hive-jp02-nra/reference/vsl_hive_nra_observer_reference_v0_1.py
+UMask=0077
+NoNewPrivileges=true
